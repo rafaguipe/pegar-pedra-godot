@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://8idtg64kc1fa"]
+
+[ext_resource type="Script" uid="uid://ctp8fyb8kuqns" path="res://player.gd" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://djfftpnht6v4m" path="res://main.gd" id="1_r0du0"]
+[ext_resource type="Texture2D" uid="uid://cqtmei3k8wrf3" path="res://icon.svg" id="2_uu6xs"]
+[ext_resource type="Texture2D" uid="uid://wehrvthw7c3i" path="res://pedra.png" id="4_cm0pq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uu6xs"]
+size = Vector2(139.915, 134.982)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cm0pq"]
+size = Vector2(93.0555, 128.788)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_r0du0")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+visible = false
+scale = Vector2(0.921986, 0.859375)
+script = ExtResource("1_glv2v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-1.07692, -6.67572e-06)
+shape = SubResource("RectangleShape2D_uu6xs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(-1.07692, 2.32727)
+texture = ExtResource("2_uu6xs")
+
+[node name="Alvo" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Alvo"]
+position = Vector2(303.5, 63)
+scale = Vector2(0.72, -0.528)
+shape = SubResource("RectangleShape2D_cm0pq")
+
+[node name="Sprite2D" type="Sprite2D" parent="Alvo"]
+position = Vector2(300, 65)
+scale = Vector2(3, 3)
+texture = ExtResource("4_cm0pq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 60.0
+offset_bottom = 69.0
+text = "Pontos: 0
+"
+
+[connection signal="body_entered" from="Alvo" to="." method="_on_alvo_body_entered"]
